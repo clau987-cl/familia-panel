@@ -14,6 +14,7 @@ export default function App() {
   const [loading, setLoading]   = useState(true)
   const [filter, setFilter]     = useState('todos')
 
+  // Auth
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setSession(data.session))
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -22,6 +23,7 @@ export default function App() {
     return () => listener.subscription.unsubscribe()
   }, [])
 
+  // Cargar items
   const cargarItems = useCallback(async () => {
     setLoading(true)
     const { data, error } = await supabase
@@ -36,6 +38,7 @@ export default function App() {
     if (session) cargarItems()
   }, [session, cargarItems])
 
+  // Realtime
   useEffect(() => {
     if (!session) return
     const channel = supabase
@@ -48,10 +51,7 @@ export default function App() {
   }, [session, cargarItems])
 
   const toggleCompletado = async (item) => {
-    await supabase
-      .from('items')
-      .update({ completado: !item.completado })
-      .eq('id', item.id)
+    await supabase.from('items').update({ completado: !item.completado }).eq('id', item.id)
     cargarItems()
   }
 
@@ -85,7 +85,10 @@ export default function App() {
       />
       <main className="main-content">
         {loading ? (
-          <div className="loading">Cargando...</div>
+          <div className="loading">
+            <div className="loading-spinner" />
+            <span>Cargando...</span>
+          </div>
         ) : view === 'lista' ? (
           <ListView
             items={itemsFiltrados}
@@ -101,4 +104,4 @@ export default function App() {
       </main>
     </div>
   )
-}
+      }
