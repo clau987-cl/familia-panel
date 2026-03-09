@@ -3,8 +3,9 @@ import React, { useState } from 'react'
 const EMOJIS = { PENDIENTE: '📌', EVENTO: '📅', COMPRA: '🛒', AGENDA: '🚗' }
 
 export default function ListView({ items, onToggle, onUpdate, onDelete }) {
-  const [editId, setEditId]     = useState(null)
-  const [editText, setEditText] = useState('')
+  const [editId, setEditId]       = useState(null)
+  const [editText, setEditText]   = useState('')
+  const [lightbox, setLightbox]   = useState(null)
 
   const startEdit = (item) => { setEditId(item.id); setEditText(item.descripcion) }
   const saveEdit  = (item) => {
@@ -16,7 +17,13 @@ export default function ListView({ items, onToggle, onUpdate, onDelete }) {
   const completados = items.filter(i => i.completado)
 
   if (items.length === 0) {
-    return <div className="list-empty">✅ No hay items. ¡Escribe en Slack para agregar!</div>
+    return (
+      <div className="list-empty">
+        <div className="empty-icon">📋</div>
+        <div className="empty-title">Sin items por ahora</div>
+        <div className="empty-sub">Escribe en Slack para agregar tareas, eventos o compras</div>
+      </div>
+    )
   }
 
   const renderItem = (item) => (
@@ -40,9 +47,17 @@ export default function ListView({ items, onToggle, onUpdate, onDelete }) {
               autoFocus
             />
           ) : (
-            <span className="item-desc">{item.descripcion}</span>
+            <span className="item-desc" onClick={() => startEdit(item)}>{item.descripcion}</span>
           )}
         </div>
+
+        {/* Thumbnail de imagen */}
+        {item.imagen_url && (
+          <div className="item-image-wrap" onClick={() => setLightbox(item.imagen_url)}>
+            <img src={item.imagen_url} alt="adjunto" className="item-thumbnail" loading="lazy" />
+          </div>
+        )}
+
         <div className="item-meta">
           {item.fecha && (
             <span className="item-fecha">⏰ {item.fecha}</span>
@@ -68,7 +83,7 @@ export default function ListView({ items, onToggle, onUpdate, onDelete }) {
     <div className="list-view">
       {pendientes.length > 0 && (
         <>
-          <div style={{ fontSize: 13, fontWeight: 600, color: '#64748b', padding: '4px 0' }}>
+          <div className="section-label">
             PENDIENTES ({pendientes.length})
           </div>
           {pendientes.map(renderItem)}
@@ -76,11 +91,21 @@ export default function ListView({ items, onToggle, onUpdate, onDelete }) {
       )}
       {completados.length > 0 && (
         <>
-          <div style={{ fontSize: 13, fontWeight: 600, color: '#94a3b8', padding: '12px 0 4px' }}>
+          <div className="section-label completed-label">
             COMPLETADOS ({completados.length})
           </div>
           {completados.map(renderItem)}
         </>
+      )}
+
+      {/* Lightbox para ver imagen completa */}
+      {lightbox && (
+        <div className="lightbox-overlay" onClick={() => setLightbox(null)}>
+          <div className="lightbox-content" onClick={e => e.stopPropagation()}>
+            <img src={lightbox} alt="Vista completa" className="lightbox-img" />
+            <button className="lightbox-close" onClick={() => setLightbox(null)}>✕</button>
+          </div>
+        </div>
       )}
     </div>
   )
