@@ -1,3 +1,6 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    { "source": "/baby-shower-bastian.html", "destination": "/baby-shower-bastian.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
