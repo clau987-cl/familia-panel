@@ -5,9 +5,11 @@ import Header from './components/Header'
 import ListView from './components/ListView'
 import CalendarView from './components/CalendarView'
 import PersonView from './components/PersonView'
+import BabyShowerLabels from './components/BabyShowerLabels'
 import './App.css'
 
 export default function App() {
+  if (window.location.pathname === '/baby-shower') return <BabyShowerLabels />
   const [session, setSession]   = useState(null)
   const [items, setItems]       = useState([])
   const [view, setView]         = useState('lista')
