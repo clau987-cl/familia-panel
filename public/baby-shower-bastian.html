@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baby Shower Bastian – Etiquetas Palitos</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #f0e8f5;
+      font-family: 'Quicksand', sans-serif;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #a56cbf;
+      font-family: 'Dancing Script', cursive;
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+    .instrucciones {
+      text-align: center;
+      color: #888;
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+    .instrucciones span {
+      background: #e8d5f5;
+      border-radius: 10px;
+      padding: 3px 10px;
+      margin: 0 4px;
+    }
+
+    /* ─── GRID DE ETIQUETAS ─── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px 30px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* ─── ETIQUETA BANDERÍN ─── */
+    .etiqueta-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /*
+      El banderín está formado por DOS mitades (superior e inferior)
+      que se doblan alrededor del palito en la línea central.
+      Cortar por la línea punteada exterior, doblar por la línea
+      sólida del medio y pegar las dos mitades.
+    */
+    .etiqueta {
+      width: 240px;
+      position: relative;
+      border: 1.5px dashed #c89fd8;
+      border-radius: 4px;
+      overflow: visible;
+    }
+
+    /* Mitad superior */
+    .mitad-top {
+      width: 100%;
+      height: 72px;
+      background: linear-gradient(135deg, #f3d9fa 0%, #e8c5f5 60%, #d4a8e8 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 2px solid #a56cbf;
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 10% 100%);
+      padding-bottom: 10px;
+    }
+
+    /* Mitad inferior (espejo) */
+    .mitad-bot {
+      width: 100%;
+      height: 72px;
+      background: linear-gradient(225deg, #f3d9fa 0%, #e8c5f5 60%, #d4a8e8 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-top: 2px solid #a56cbf;
+      clip-path: polygon(10% 0, 90% 0, 100% 15%, 100% 100%, 0 100%);
+      padding-top: 10px;
+      transform: rotate(180deg);
+    }
+
+    .nombre {
+      font-family: 'Dancing Script', cursive;
+      font-size: 26px;
+      color: #6b2fa0;
+      line-height: 1;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.6);
+    }
+
+    .subtitulo {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: #9a4dbf;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .estrellitas {
+      font-size: 11px;
+      color: #c070e0;
+      margin-top: 1px;
+    }
+
+    /* Indicador de doblez */
+    .linea-doblez {
+      text-align: center;
+      font-size: 8px;
+      color: #b07cc8;
+      letter-spacing: 1px;
+      padding: 1px 0;
+      background: #f0e0fa;
+      border-top: 1px solid #d4a8e8;
+      border-bottom: 1px solid #d4a8e8;
+    }
+
+    /* Decoraciones internas */
+    .deco {
+      position: absolute;
+      font-size: 14px;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    .deco.tl { top: 6px; left: 8px; }
+    .deco.tr { top: 6px; right: 8px; }
+    .deco.bl { bottom: 6px; left: 8px; transform: rotate(180deg); }
+    .deco.br { bottom: 6px; right: 8px; transform: rotate(180deg); }
+
+    /* Etiqueta de corte */
+    .cut-hint {
+      font-size: 9px;
+      color: #b8a0c8;
+      margin-top: 3px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── IMPRIMIR ─── */
+    .btn-print {
+      display: block;
+      margin: 24px auto 0;
+      padding: 10px 32px;
+      background: #a56cbf;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      box-shadow: 0 3px 10px rgba(165,108,191,0.4);
+    }
+    .btn-print:hover { background: #8b4dab; }
+
+    @media print {
+      body { background: white; padding: 8mm; }
+      h1, .instrucciones, .btn-print { display: none; }
+      .grid {
+        max-width: 100%;
+        gap: 10px 16px;
+      }
+      .cut-hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>✨ Baby Shower Bastian ✨</h1>
+  <p class="instrucciones">
+    <span>✂ Recorta por la línea punteada</span>
+    <span>📌 Dobla por la línea del medio</span>
+    <span>🍬 Pega en el palito</span>
+  </p>
+
+  <div class="grid" id="grid"></div>
+
+  <button class="btn-print" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+
+  <script>
+    const grid = document.getElementById('grid');
+
+    for (let i = 0; i < 10; i++) {
+      const wrap = document.createElement('div');
+      wrap.className = 'etiqueta-wrap';
+
+      wrap.innerHTML = `
+        <div class="etiqueta">
+          <!-- decoraciones esquinas -->
+          <span class="deco tl">🌸</span>
+          <span class="deco tr">⭐</span>
+          <span class="deco bl">🌸</span>
+          <span class="deco br">⭐</span>
+
+          <!-- mitad superior (cara A) -->
+          <div class="mitad-top">
+            <div class="estrellitas">✦ ✦ ✦</div>
+            <div class="nombre">Bastian</div>
+            <div class="subtitulo">Baby Shower</div>
+          </div>
+
+          <!-- línea de doblez -->
+          <div class="linea-doblez">── ── DOBLAR AQUÍ ── ──</div>
+
+          <!-- mitad inferior (cara B, espejada) -->
+          <div class="mitad-bot">
+            <div class="estrellitas">✦ ✦ ✦</div>
+            <div class="nombre">Bastian</div>
+            <div class="subtitulo">Baby Shower</div>
+          </div>
+        </div>
+        <span class="cut-hint">✂ cortar por línea punteada</span>
+      `;
+
+      grid.appendChild(wrap);
+    }
+  </script>
+
+</body>
+</html>
