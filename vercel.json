@@ -1,6 +1,6 @@
 {
-  "rewrites": [
-    { "source": "/baby-shower-bastian.html", "destination": "/baby-shower-bastian.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
